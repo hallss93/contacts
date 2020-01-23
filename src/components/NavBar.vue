@@ -15,3 +15,11 @@
     <div class="c-sub-navbar blue lighten-4"></div>
   </div>
 </template>
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component
+export default class NavBar extends Vue {
+}
+</script>

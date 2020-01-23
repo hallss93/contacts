@@ -7,10 +7,13 @@
   </div>
 </template>
 
-<script>
-import NavBar from "@/components/NavBar";
-export default {
-  name: "home",
+<script lang="ts">
+import NavBar from "@/components/NavBar.vue";
+
+import { Component, Vue, Emit, Watch } from "vue-property-decorator";
+
+@Component({
   components: { NavBar }
-};
+})
+export default class Home extends Vue {}
 </script>
