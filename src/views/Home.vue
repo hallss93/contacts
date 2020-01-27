@@ -9,17 +9,17 @@
       <div class="row">
         <div class="input-field col s6">
           <input
-            placeholder="Placeholder"
+            placeholder="Name"
             id="name"
             type="text"
-            v-model="first_name"
+            v-model="name"
             class="validate"
           />
           <label for="name" class="active">Name</label>
         </div>
         <div class="input-field col s6">
           <input
-            placeholder="Placeholder"
+            placeholder="(00) 00000-0000"
             id="phone"
             type="text"
             v-mask="'(##) #####-####'"
@@ -53,7 +53,7 @@
             @click="openModal(idx)"
             :class="{ 'blue lighten-4': i.SP }"
           >
-            <td :class="{ 'blue lighten-4': i.SP }">{{ i.first_name }}</td>
+            <td :class="{ 'blue lighten-4': i.SP }">{{ i.name }}</td>
             <td>{{ i.phone }}</td>
           </tr>
         </tbody>
@@ -68,6 +68,9 @@ import NavBar from "@/components/NavBar.vue";
 import contacts from "./../../api/contacts";
 
 import { Component, Vue, Emit, Watch } from "vue-property-decorator";
+import VueMask from "v-mask";
+
+Vue.use(VueMask);
 /* interface JQuery {
   DataTable(): void;
 } */
@@ -77,7 +80,7 @@ import { Component, Vue, Emit, Watch } from "vue-property-decorator";
 export default class Home extends Vue {
   contacts: any = [];
   contactEdit = 0;
-  first_name = "";
+  name = "";
   phone = "";
   @Emit()
   tableGen() {
@@ -106,7 +109,7 @@ export default class Home extends Vue {
     if (status === 200) {
       this.contacts = {};
       this.$nextTick(() => {
-        this.first_name = data.data.first_name;
+        this.name = data.data.name;
         this.phone = data.data.phone;
         this.contacts = data.data;
         this.checkDDD();
@@ -117,7 +120,7 @@ export default class Home extends Vue {
 
   openModal(idx: any) {
     this.$nextTick(() => {
-      this.first_name = this.contacts[idx].first_name;
+      this.name = this.contacts[idx].name;
       this.phone = this.contacts[idx].phone;
     });
     // initialize all modals
@@ -128,7 +131,20 @@ export default class Home extends Vue {
   }
 
   saveContact() {
-    this.contacts[this.contactEdit].first_name = this.first_name;
+    if (this.phone.length < 15) {
+      alert("The phone is incorrect!");
+      return false;
+    }
+    const names = this.name.split(" ");
+    if (names.length < 2) {
+      alert("The name must contain two words!");
+      return false;
+    }
+    if (names[0].length < 3 || names[1].length < 3) {
+      alert("The name must be longer!");
+      return false;
+    }
+    this.contacts[this.contactEdit].name = this.name;
     this.contacts[this.contactEdit].phone = this.phone;
     $("#modal1").modal("close");
     this.checkDDD();

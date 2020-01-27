@@ -1,7 +1,7 @@
 import api from "./index";
 
 const url = {
-    contacts: "https://api.myjson.com/bins/7wgh2"
+    contacts: "https://api.myjson.com/bins/18zrgm"
 };
 
 export default {
