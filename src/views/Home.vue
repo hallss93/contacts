@@ -53,9 +53,7 @@
             @click="openModal(idx)"
             :class="{ 'blue lighten-4': i.SP }"
           >
-            <td :class="{ 'blue lighten-4': i.SP }">
-              {{ i.first_name }} {{ i.last_name }}
-            </td>
+            <td :class="{ 'blue lighten-4': i.SP }">{{ i.first_name }}</td>
             <td>{{ i.phone }}</td>
           </tr>
         </tbody>
@@ -85,7 +83,6 @@ export default class Home extends Vue {
   tableGen() {
     $(document).ready(function() {
       const table: any = $("#example");
-      console.log(table);
       table.DataTable();
       setTimeout(() => {}, 2000);
     });
