@@ -64,16 +64,13 @@
 
 <script lang="ts">
 import NavBar from "@/components/NavBar.vue";
-
-import contacts from "./../../api/contacts";
-
+const contacts = require("./../../api/contacts").default;
+import "jquery";
 import { Component, Vue, Emit, Watch } from "vue-property-decorator";
-import VueMask from "v-mask";
 
+const VueMask = require("v-mask");
 Vue.use(VueMask);
-/* interface JQuery {
-  DataTable(): void;
-} */
+
 @Component({
   components: { NavBar }
 })
@@ -94,7 +91,7 @@ export default class Home extends Vue {
   checkDDD() {
     let temp = this.contacts;
     this.contacts = [];
-    temp.map(e => {
+    temp.map((e: any) => {
       e.SP =
         e.phone
           .match(/\d+/g)
@@ -124,10 +121,13 @@ export default class Home extends Vue {
       this.phone = this.contacts[idx].phone;
     });
     // initialize all modals
-    $(".modal").modal();
+
+    let modals: any = $(".modal");
+    modals.modal();
 
     // open modal from code
-    $("#modal1").modal("open");
+    let modal: any = $("#modal1");
+    modal.modal("open");
   }
 
   saveContact() {
@@ -146,7 +146,9 @@ export default class Home extends Vue {
     }
     this.contacts[this.contactEdit].name = this.name;
     this.contacts[this.contactEdit].phone = this.phone;
-    $("#modal1").modal("close");
+
+    let modal: any = $("#modal1");
+    modal.modal("close");
     this.checkDDD();
   }
   created() {
