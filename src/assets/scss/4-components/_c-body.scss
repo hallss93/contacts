@@ -1,3 +1,5 @@
 .c-body-suspended {
-  margin-top: rem(-90);
+  transition: all 0.6s ease-in-out;
+  margin-top: rem(-20);
+  opacity: 0;
 }

@@ -280,6 +280,11 @@ export default class Home extends Vue {
   }
 
   created() {
+    setTimeout(() => {
+      let container: any = document.querySelector(".c-body-suspended");
+      container.style.opacity = "1";
+      container.style.marginTop = "-90px";
+    }, 50);
     this.getAllContacts();
   }
 }
